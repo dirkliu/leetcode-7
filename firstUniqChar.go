@@ -13,12 +13,30 @@ import (
 	"strings"
 )
 
+// 20ms
+// func firstUniqChar(s string) int {
+// 	for index, value := range s {
+// 		if strings.Index(s, string(value)) == strings.LastIndex(s, string(value)) {
+// 			return index
+// 		}
+// 	}
+// 	return -1
+// }
+
+// 4ms
 func firstUniqChar(s string) int {
-	for index, value := range s {
-		if strings.Index(s, string(value)) == strings.LastIndex(s, string(value)) {
-			return index
+	table := [26]int{}
+
+	for i := 0; i < len(s); i++ {
+		table[s[i]-'a']++
+	}
+
+	for i := 0; i < len(s); i++ {
+		if table[s[i]-'a'] == 1 {
+			return i
 		}
 	}
+
 	return -1
 }
 
